@@ -12,7 +12,7 @@ export const loginAdmin = async (req, res, next) => {
     const admin = await Admin.findOne({ email }).select('+password');
 
     if (admin && (await admin.matchPassword(password))) {
-      generateToken(res, admin._id);
+      const token = generateToken(res, admin._id);
       
       await AuditLog.create({
         adminId: admin._id,
@@ -28,6 +28,7 @@ export const loginAdmin = async (req, res, next) => {
         name: admin.name,
         email: admin.email,
         role: admin.role,
+        token: token,
       });
     } else {
       res.status(401);

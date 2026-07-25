@@ -57,15 +57,38 @@ const Profile = () => {
           animate={{ opacity: 1, x: 0 }}
           className="w-full md:w-1/3 glass-card p-6 flex flex-col items-center text-center h-fit shadow-rose-500/10"
         >
-          <div className="relative mb-4 group cursor-pointer">
+          <div className="relative mb-4 group cursor-pointer" onClick={() => document.getElementById('profilePhotoInput').click()}>
             <img 
-              src={user?.profilePhoto || "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"} 
+              src={formData.profilePhoto || user?.profilePhoto || "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"} 
               alt="Profile" 
               className="w-32 h-32 rounded-full border-4 border-primary/20 object-cover"
             />
             <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span className="text-white text-sm">Change Photo</span>
             </div>
+            <input 
+              type="file" 
+              id="profilePhotoInput" 
+              className="hidden" 
+              accept="image/*" 
+              capture="environment"
+              onChange={async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const uploadData = new FormData();
+                uploadData.append('file', file);
+                
+                try {
+                  const { data } = await axios.post('/media/upload/image', uploadData);
+                  setFormData({ ...formData, profilePhoto: data.url });
+                  setMessage('Photo uploaded! Click Save to apply.');
+                  setTimeout(() => setMessage(''), 3000);
+                } catch (err) {
+                  setMessage('Failed to upload photo.');
+                }
+              }} 
+            />
           </div>
           <h2 className="text-xl font-bold">{user?.fullName}</h2>
           <p className="text-light-muted dark:text-dark-muted">{user?.email}</p>

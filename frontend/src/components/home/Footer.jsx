@@ -43,55 +43,40 @@ const Footer = () => {
           </div>
 
           {/* Links 1 */}
-          <div>
-            <h4 className="text-white font-bold mb-6">Platform</h4>
-            <ul className="space-y-4 text-sm text-gray-400">
-              {footerData.quickLinks?.length > 0 ? footerData.quickLinks.map((link, idx) => (
-                <li key={idx}><a href={link.path} className="hover:text-[#FF2E88] transition-colors">{link.label}</a></li>
-              )) : (
-                <>
-                  <li><a href="#features" className="hover:text-[#FF2E88] transition-colors">Features</a></li>
-                  <li><a href="#community" className="hover:text-[#FF2E88] transition-colors">Communities</a></li>
-                  <li><a href="#faq" className="hover:text-[#FF2E88] transition-colors">FAQ</a></li>
-                  <li><a href="#" className="hover:text-[#FF2E88] transition-colors">Pricing</a></li>
-                </>
-              )}
-            </ul>
-          </div>
+          {footerData.quickLinks?.length > 0 && (
+            <div>
+              <h4 className="text-white font-bold mb-6">Platform</h4>
+              <ul className="space-y-4 text-sm text-gray-400">
+                {footerData.quickLinks.map((link, idx) => (
+                  <li key={idx}><a href={link.path} className="hover:text-[#FF2E88] transition-colors">{link.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Links 2 */}
-          <div>
-            <h4 className="text-white font-bold mb-6">Company</h4>
-            <ul className="space-y-4 text-sm text-gray-400">
-              {footerData.companyLinks?.length > 0 ? footerData.companyLinks.map((link, idx) => (
-                <li key={idx}><a href={link.path} className="hover:text-[#FF2E88] transition-colors">{link.label}</a></li>
-              )) : (
-                <>
-                  <li><a href="#about" className="hover:text-[#FF2E88] transition-colors">About Us</a></li>
-                  <li><a href="#contact" className="hover:text-[#FF2E88] transition-colors">Contact</a></li>
-                  <li><a href="#" className="hover:text-[#FF2E88] transition-colors">Careers</a></li>
-                  <li><a href="#" className="hover:text-[#FF2E88] transition-colors">Blog</a></li>
-                </>
-              )}
-            </ul>
-          </div>
+          {footerData.companyLinks?.length > 0 && (
+            <div>
+              <h4 className="text-white font-bold mb-6">Company</h4>
+              <ul className="space-y-4 text-sm text-gray-400">
+                {footerData.companyLinks.map((link, idx) => (
+                  <li key={idx}><a href={link.path} className="hover:text-[#FF2E88] transition-colors">{link.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Links 3 */}
-          <div>
-            <h4 className="text-white font-bold mb-6">Legal</h4>
-            <ul className="space-y-4 text-sm text-gray-400">
-              {footerData.legalLinks?.length > 0 ? footerData.legalLinks.map((link, idx) => (
-                <li key={idx}><a href={link.path} className="hover:text-[#FF2E88] transition-colors">{link.label}</a></li>
-              )) : (
-                <>
-                  <li><a href="#" className="hover:text-[#FF2E88] transition-colors">Privacy Policy</a></li>
-                  <li><a href="#" className="hover:text-[#FF2E88] transition-colors">Terms of Service</a></li>
-                  <li><a href="#" className="hover:text-[#FF2E88] transition-colors">Cookie Policy</a></li>
-                  <li><a href="#" className="hover:text-[#FF2E88] transition-colors">Acceptable Use</a></li>
-                </>
-              )}
-            </ul>
-          </div>
+          {footerData.legalLinks?.length > 0 && (
+            <div>
+              <h4 className="text-white font-bold mb-6">Legal</h4>
+              <ul className="space-y-4 text-sm text-gray-400">
+                {footerData.legalLinks.map((link, idx) => (
+                  <li key={idx}><a href={link.path} className="hover:text-[#FF2E88] transition-colors">{link.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          )}
 
         </div>
 

@@ -8,12 +8,16 @@ const instance = axios.create({
 // Add a request interceptor for Bearer tokens (Mobile Safari fix)
 instance.interceptors.request.use((config) => {
   const userStr = localStorage.getItem('user');
+  const adminStr = localStorage.getItem('admin');
+  
   if (userStr) {
     const user = JSON.parse(userStr);
-    if (user.token) {
-      config.headers.Authorization = `Bearer ${user.token}`;
-    }
+    if (user.token) config.headers.Authorization = `Bearer ${user.token}`;
+  } else if (adminStr) {
+    const admin = JSON.parse(adminStr);
+    if (admin.token) config.headers.Authorization = `Bearer ${admin.token}`;
   }
+  
   return config;
 }, (error) => {
   return Promise.reject(error);
