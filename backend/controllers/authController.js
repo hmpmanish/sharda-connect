@@ -33,13 +33,14 @@ export const registerUser = async (req, res, next) => {
     });
 
     if (user) {
-      generateToken(res, user._id);
+      const token = generateToken(res, user._id);
 
       res.status(201).json({
         _id: user._id,
         fullName: user.fullName,
         email: user.email,
         profilePhoto: user.profilePhoto,
+        token: token,
       });
     } else {
       res.status(400);
@@ -65,13 +66,14 @@ export const loginUser = async (req, res, next) => {
     const user = await User.findOne({ email }).select('+password');
 
     if (user && (await user.matchPassword(password))) {
-      generateToken(res, user._id);
+      const token = generateToken(res, user._id);
 
       res.status(200).json({
         _id: user._id,
         fullName: user.fullName,
         email: user.email,
         profilePhoto: user.profilePhoto,
+        token: token,
       });
     } else {
       res.status(401);
