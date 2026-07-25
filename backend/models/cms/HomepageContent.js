@@ -1,0 +1,3 @@
+import mongoose from 'mongoose';
+const schema = new mongoose.Schema({ hero: { headline: String, subHeadline: String, primaryButtonText: String, secondaryButtonText: String, backgroundType: String }, cta: { heading: String, description: String, primaryButtonText: String, secondaryButtonText: String }, stats: [{ label: String, value: String }] }, { timestamps: true });
+export default mongoose.model('HomepageContent', schema);
