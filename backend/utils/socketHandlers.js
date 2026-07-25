@@ -10,11 +10,16 @@ export const setupSocketHandlers = (io) => {
   // Middleware to authenticate socket connections
   io.use(async (socket, next) => {
     try {
-      const cookieHeader = socket.handshake.headers.cookie;
-      if (!cookieHeader) return next(new Error('Authentication error'));
+      // 1. Try to get token from explicit auth payload (cross-domain friendly)
+      let token = socket.handshake.auth?.token;
       
-      const token = cookieHeader.split('; ').find(row => row.startsWith('jwt='))?.split('=')[1];
-      if (!token) return next(new Error('Authentication error'));
+      // 2. Fallback to cookies (works locally or same-domain)
+      if (!token) {
+        const cookieHeader = socket.handshake.headers.cookie;
+        token = cookieHeader?.split('; ').find(row => row.startsWith('jwt='))?.split('=')[1];
+      }
+      
+      if (!token) return next(new Error('Authentication error - No Token'));
       
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findById(decoded.userId).select('-password');

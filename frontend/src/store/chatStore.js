@@ -11,8 +11,12 @@ const useChatStore = create((set, get) => ({
   isTyping: false,
 
   connectSocket: () => {
+    const userStr = localStorage.getItem('user');
+    const token = userStr ? JSON.parse(userStr).token : null;
+
     const socket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000', {
       withCredentials: true,
+      auth: { token }
     });
 
     socket.on('connect', () => {
