@@ -67,7 +67,7 @@ const MainLayout = ({ isAdmin = false }) => {
 
       {/* Sidebar */}
       <div className={`fixed inset-y-0 left-0 z-50 w-72 transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <Sidebar isAdmin={isAdmin} closeSidebar={() => setSidebarOpen(false)} />
+        <Sidebar isAdmin={isAdmin} isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
       </div>
 
       {/* Main Content Area */}
