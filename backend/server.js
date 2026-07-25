@@ -82,6 +82,15 @@ app.use('/api/media', mediaRoutes);
 app.use('/api/calls', callRoutes);
 app.use('/api/cms', cmsRoutes);
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.get('/', (req, res) => {
   res.send('Sharda Connect API is running...');
 });
